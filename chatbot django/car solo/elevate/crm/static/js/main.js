@@ -139,6 +139,15 @@ async function sendMessage() {
         const data = await response.json();
         hideThinking();
 
+        if (!response.ok || data.error) {
+            const errorMsg = data.error?.message || `API request failed with status ${response.status}`;
+            console.error('API Error:', data);
+            addMessageToChat('bot', `Error: ${errorMsg}`);
+            isGenerating = false;
+            updateSendButtonState();
+            return;
+        }
+
         try {
             const botResponse = model.formatResponse(data);
             addMessageToChat('bot', botResponse);

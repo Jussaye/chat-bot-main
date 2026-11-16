@@ -1,0 +1,21 @@
+# Python
+*.pyc
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Local configuration with secrets (NEVER commit secrets to git)
+config.local.js
+*config.local.js
+.env
+.env.*
+
+# Local SQLite database
+*.sqlite3
+db.sqlite3
+
+# IDE and OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

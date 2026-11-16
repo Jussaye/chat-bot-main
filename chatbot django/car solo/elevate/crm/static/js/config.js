@@ -1,8 +1,8 @@
 // Define available AI models
 const AI_MODELS = {
     gemini: {
-        name: 'Gemini 2.0',
-        url: 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent',
+        name: 'Gemini',
+        url: 'https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash-lite:generateContent',
         key: 'YOUR_GEMINI_API_KEY',
         headers: {
             'Content-Type': 'application/json'
