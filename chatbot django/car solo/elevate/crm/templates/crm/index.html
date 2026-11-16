@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Chatbot</title>
+    {% load static %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body data-authenticated="{% if user.is_authenticated %}true{% else %}false{% endif %}">
+    <nav class="nav-sidebar">
+        <h1><i class="fa-solid fa-robot" style="color: #ffd700; font-size: 2.1rem; vertical-align: middle; position: relative; top: -3px;"></i> ChatBot</h1>
+        <div class="nav-links">
+            <a href="{% url 'my-login' %}"><i class="fas fa-sign-in-alt"></i>  Log In</a>
+            <a href="{% url 'register' %}"><i class="fas fa-user-plus"></i> Sign Up</a>
+        </div>
+        <div class="note-container" style="background-color: #111; color: #fff; font-family: 'Segoe UI', Arial, sans-serif; padding: 18px 16px; border-radius: 8px; margin-top: 25px; box-shadow: 0 2px 8px rgba(0,0,0,0.12); font-size: 1.08rem;">
+            <h1 style="font-size: 1.1rem; margin: 0 0 8px 0; font-weight: 600; letter-spacing: 1px; color: #ffd700;">Note :-</h1>
+            Please login to interact with chatbots
+        </div>
+    </nav>
+    <button class="nav-toggle" onclick="toggleNav()">
+        <i class="fas fa-chevron-left"></i>
+    </button>
+
+    <div class="main-content">
+        <div class="chat-container">
+            <div class="chat-messages" id="chatMessages"></div>
+            <div class="input-container">
+                <input type="text" id="userInput" placeholder="Type your message...">
+                <button id="sendButton" onclick="checkAuthAndSend()" {% if not user.is_authenticated %}disabled{% endif %}>
+                    {% if not user.is_authenticated %}
+                        <i class="fas fa-lock"></i>
+                    {% endif %}
+                    Send
+                </button>
+                <button class="stop-button" id="stopButton" onclick="stopGeneration()">
+                    <i class="fas fa-stop"></i> Stop
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="{% static 'js/config.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var isAuthenticated = document.body.getAttribute('data-authenticated') === 'true';
+            var sendButton = document.getElementById('sendButton');
+
+            // Enable or disable the send button based on authentication
+            if (!isAuthenticated) {
+                sendButton.disabled = true;
+            }
+        });
+
+        // Function to check authentication and send message
+        function checkAuthAndSend() {
+            var isAuthenticated = document.body.getAttribute('data-authenticated') === 'true';
+            
+            if (isAuthenticated) {
+                var chatMessages = document.getElementById('chatMessages');
+                var messageDiv = document.createElement('div');
+                messageDiv.className = 'message bot-message';
+                messageDiv.innerHTML = '<strong>System:</strong> Please login to use the chat. <a href="{% url "my-login" %}">Login here</a>';
+                chatMessages.appendChild(messageDiv);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            } 
+        }
+    </script>
+</body>
+</html>

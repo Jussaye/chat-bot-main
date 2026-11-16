@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Chatbot</title>
+    {% load static %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <nav class="nav-sidebar">
+        <h1><i class="fa-solid fa-robot" style="color: #ffd700; font-size: 2.1rem; vertical-align: middle; position: relative; top: -3px;"></i> ChatBot</h1>
+        <div class="nav-links">
+            <a id="login" href="{% url 'user-logout' %}"><i class="fas fa-sign-in-alt"></i>  Log Out</a>
+        </div>
+        <div class="note-container" style="background-color: #111; color: #fff; font-family: 'Segoe UI', Arial, sans-serif; padding: 18px 16px; border-radius: 8px; margin-top: 25px; box-shadow: 0 2px 8px rgba(0,0,0,0.12); font-size: 1.08rem;">
+            <h1 style="font-size: 1.1rem; margin: 0 0 8px 0; font-weight: 600; letter-spacing: 1px; color: #ffd700;">Note :-</h1>
+            {% if user.is_authenticated %}
+                {{ user.username }} has successfully logined
+            {% else %}
+                Please login to interact with chatbots
+            {% endif %}
+        </div>
+    </nav>
+
+    
+    <button class="nav-toggle" onclick="toggleNav()">
+        <i class="fas fa-chevron-left"></i>
+    </button>
+
+    <div class="main-content">
+        <div class="chat-container">
+            <div class="chat-messages" id="chatMessages"></div>
+            <div class="input-container">
+                <input type="text" id="userInput" placeholder="Type your message...">
+                <button onclick="sendMessage()">Send</button>
+                <button class="stop-button" id="stopButton" onclick="stopGeneration()">
+                    <i class="fas fa-stop"></i> Stop
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="{% static 'js/config.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+</body>
+</html>
