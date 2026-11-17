@@ -7,6 +7,7 @@
     {% load static %}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <script src="{% static 'js/theme.js' %}"></script>
 </head>
 <body data-authenticated="{% if user.is_authenticated %}true{% else %}false{% endif %}">
     <nav class="nav-sidebar">
@@ -15,8 +16,28 @@
             <a href="{% url 'my-login' %}"><i class="fas fa-sign-in-alt"></i>  Log In</a>
             <a href="{% url 'register' %}"><i class="fas fa-user-plus"></i> Sign Up</a>
         </div>
-        <div class="note-container" style="background-color: #111; color: #fff; font-family: 'Segoe UI', Arial, sans-serif; padding: 18px 16px; border-radius: 8px; margin-top: 25px; box-shadow: 0 2px 8px rgba(0,0,0,0.12); font-size: 1.08rem;">
-            <h1 style="font-size: 1.1rem; margin: 0 0 8px 0; font-weight: 600; letter-spacing: 1px; color: #ffd700;">Note :-</h1>
+        
+        <div class="theme-toggle-box">
+            <div class="theme-toggle-title">
+                <i class="fa-solid fa-circle-half-stroke"></i>
+                <span>Appearance</span>
+            </div>
+            <div class="theme-slider-container">
+                <div class="theme-icon-btn light-icon" title="Light Mode">
+                    <i class="fa-solid fa-sun"></i>
+                </div>
+                <label class="theme-switch" for="sidebarThemeToggle" aria-label="Toggle dark mode">
+                    <input type="checkbox" id="sidebarThemeToggle" class="theme-slider-checkbox">
+                    <span class="slider round"></span>
+                </label>
+                <div class="theme-icon-btn dark-icon" title="Dark Mode">
+                    <i class="fa-solid fa-moon"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="note-container">
+            <h1>Note :-</h1>
             Please login to interact with chatbots
         </div>
     </nav>
@@ -25,6 +46,16 @@
     </button>
 
     <div class="main-content">
+        <div class="top-nav-bar">
+            <div class="quick-theme-toggle" title="Switch Theme">
+                <i class="fa-solid fa-sun light-icon" style="font-size: 14px;"></i>
+                <label class="theme-switch" for="topThemeToggle" aria-label="Toggle dark mode">
+                    <input type="checkbox" id="topThemeToggle" class="theme-slider-checkbox">
+                    <span class="slider round"></span>
+                </label>
+                <i class="fa-solid fa-moon dark-icon" style="font-size: 14px;"></i>
+            </div>
+        </div>
         <div class="chat-container">
             <div class="chat-messages" id="chatMessages"></div>
             <div class="input-container">
