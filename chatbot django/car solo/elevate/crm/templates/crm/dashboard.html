@@ -6,8 +6,20 @@
     <title>AI Chatbot</title>
     {% load static %}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-    <script src="{% static 'js/theme.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}?v=2.0">
+    <script src="{% static 'js/theme.js' %}?v=2.0"></script>
+    <script>
+        (function() {
+            var theme = localStorage.getItem('chatbot_theme') || (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+            if (theme === 'dark') {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                document.documentElement.className = 'dark-theme';
+            } else {
+                document.documentElement.setAttribute('data-theme', 'light');
+                document.documentElement.className = 'light-theme';
+            }
+        })();
+    </script>
 </head>
 <body>
     <nav class="nav-sidebar">
@@ -16,22 +28,20 @@
             <a id="login" href="{% url 'user-logout' %}"><i class="fas fa-sign-in-alt"></i>  Log Out</a>
         </div>
         
-        <div class="theme-toggle-box">
-            <div class="theme-toggle-title">
+        <div class="theme-selector-box">
+            <div class="theme-selector-title">
                 <i class="fa-solid fa-circle-half-stroke"></i>
                 <span>Appearance</span>
             </div>
-            <div class="theme-slider-container">
-                <div class="theme-icon-btn light-icon" title="Light Mode">
+            <div class="theme-btn-group">
+                <button type="button" class="theme-btn theme-btn-light active" onclick="setTheme('light')" title="Light Theme">
                     <i class="fa-solid fa-sun"></i>
-                </div>
-                <label class="theme-switch" for="sidebarThemeToggle" aria-label="Toggle dark mode">
-                    <input type="checkbox" id="sidebarThemeToggle" class="theme-slider-checkbox">
-                    <span class="slider round"></span>
-                </label>
-                <div class="theme-icon-btn dark-icon" title="Dark Mode">
+                    <span>Light</span>
+                </button>
+                <button type="button" class="theme-btn theme-btn-dark" onclick="setTheme('dark')" title="Dark Theme">
                     <i class="fa-solid fa-moon"></i>
-                </div>
+                    <span>Dark</span>
+                </button>
             </div>
         </div>
 
@@ -52,13 +62,15 @@
 
     <div class="main-content">
         <div class="top-nav-bar">
-            <div class="quick-theme-toggle" title="Switch Theme">
-                <i class="fa-solid fa-sun light-icon" style="font-size: 14px;"></i>
-                <label class="theme-switch" for="topThemeToggle" aria-label="Toggle dark mode">
-                    <input type="checkbox" id="topThemeToggle" class="theme-slider-checkbox">
-                    <span class="slider round"></span>
-                </label>
-                <i class="fa-solid fa-moon dark-icon" style="font-size: 14px;"></i>
+            <div class="theme-btn-group header-theme-group">
+                <button type="button" class="theme-btn theme-btn-light active" onclick="setTheme('light')" title="Light Theme">
+                    <i class="fa-solid fa-sun"></i>
+                    <span>Light</span>
+                </button>
+                <button type="button" class="theme-btn theme-btn-dark" onclick="setTheme('dark')" title="Dark Theme">
+                    <i class="fa-solid fa-moon"></i>
+                    <span>Dark</span>
+                </button>
             </div>
         </div>
         <div class="chat-container">
